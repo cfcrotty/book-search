@@ -40,13 +40,13 @@ class Books extends Component {
           <Col size="md-12">
             <Jumbotron>
               <h1>(React) Google Books Search</h1>
-              <h3>Search and Save of Interrest</h3>
+              <h3>Search and Save Books of Interest</h3>
             </Jumbotron>
           </Col>
         </Row>
         <Row>
           <Col size="md-12 sm-12">
-            <div className="card" style={{marginBottom:"50px"}}>
+            <div className="card" style={{ marginBottom: "50px" }}>
               <div className="card-header">Results</div>
               {this.state.books.length ? (
                 <List>
@@ -57,6 +57,7 @@ class Books extends Component {
                           <div className="row">
                             <div className="col-md-10">
                               <Link to={"/books/" + book._id}>{book.title}</Link>
+                              <p className="col-md-12">by {book.authors}</p>
                             </div>
                             <div className="col-md-1">
                               <a href={book.link} target="_blank" rel="noopener noreferrer">
@@ -72,8 +73,6 @@ class Books extends Component {
                               </FormBtn>
                             </div>
                           </div>
-                          <div className="row">
-                            <div className="col-md-12">by {book.authors}</div></div>
                           <div className="row">
                             <div className="col-md-2">
                               <img src={book.image} alt={book.name} ></img>

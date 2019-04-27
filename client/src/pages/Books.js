@@ -14,7 +14,7 @@ class Books extends Component {
   };
 
   componentDidMount() {
-    this.loadBooks({"saved":false});
+    this.loadBooks({ "saved": false });
   }
 
   loadBooks = (data) => {
@@ -29,13 +29,13 @@ class Books extends Component {
 
   deleteBook = id => {
     API.deleteBook(id)
-      .then(res => this.loadBooks({"saved":false}))
+      .then(res => this.loadBooks({ "saved": false }))
       .catch(err => console.log(err));
   };
 
-  updateBook = (id,data) => {
-    API.updateBook(id,data)
-      .then(res => this.loadBooks({"saved":false}))
+  updateBook = (id, data) => {
+    API.updateBook(id, data)
+      .then(res => this.loadBooks({ "saved": false }))
       .catch(err => console.log(err));
   };
 
@@ -52,7 +52,7 @@ class Books extends Component {
       API.saveBook({
         search: this.state.search
       })
-        .then(res => this.loadBooks({"saved":false}))
+        .then(res => this.loadBooks({ "saved": false }))
         .catch(err => console.log(err));
     }
   };
@@ -64,7 +64,7 @@ class Books extends Component {
           <Col size="md-12">
             <Jumbotron>
               <h1>(React) Google Books Search</h1>
-              <h3>Search and Save of Interrest</h3>
+              <h3>Search and Save Books of Interest</h3>
             </Jumbotron>
             <form>
               <Input
@@ -85,7 +85,7 @@ class Books extends Component {
         </Row>
         <Row>
           <Col size="md-12 sm-12">
-            <div className="card" style={{marginBottom:"50px"}}>
+            <div className="card" style={{ marginBottom: "50px" }}>
               <div className="card-header">Results</div>
               {this.state.books.length ? (
                 <List>
@@ -96,17 +96,17 @@ class Books extends Component {
                           <div className="row">
                             <div className="col-md-9">
                               <Link to={"/books/" + book._id}>{book.title}</Link>
+                              <p className="col-md-12">by {book.authors}</p>
                             </div>
                             <div className="col-md-1">
-                            <a href={book.link} target="_blank" rel="noopener noreferrer">
-                            <FormBtn className="btn btn-primary">
-                                View
+                              <a href={book.link} target="_blank" rel="noopener noreferrer">
+                                <FormBtn className="btn btn-primary">
+                                  View
                               </FormBtn>
                               </a>
-                              
                             </div>
                             <div className="col-md-1">
-                            <FormBtn onClick={() => this.updateBook(book._id,{"saved":true})} className="btn btn-success">
+                              <FormBtn onClick={() => this.updateBook(book._id, { "saved": true })} className="btn btn-success">
                                 Save
                               </FormBtn>
                             </div>
@@ -117,10 +117,8 @@ class Books extends Component {
                             </div>
                           </div>
                           <div className="row">
-                            <div className="col-md-12">by {book.authors}</div></div>
-                          <div className="row">
                             <div className="col-md-2">
-                              <img src={book.image}alt={book.name} ></img>
+                              <img src={book.image} alt={book.name} ></img>
                             </div>
                             <div className="col-md-10">
                               {book.description}
