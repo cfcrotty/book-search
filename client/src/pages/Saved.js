@@ -40,14 +40,14 @@ class Books extends Component {
           <Col size="md-12">
             <Jumbotron>
               <h1>(React) Google Books Search</h1>
-              <h3>Search and Save Books of Interest</h3>
+              <h3>Saved Books</h3>
             </Jumbotron>
           </Col>
         </Row>
         <Row>
           <Col size="md-12 sm-12">
             <div className="card" style={{ marginBottom: "50px" }}>
-              <div className="card-header">Results</div>
+              <div className="card-header"><h3>Saved</h3></div>
               {this.state.books.length ? (
                 <List>
                   {this.state.books.map(book => (

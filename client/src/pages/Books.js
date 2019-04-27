@@ -7,11 +7,56 @@ import { Col, Row, Container } from "../components/Grid";
 import { List, ListItem } from "../components/List";
 import { Input, FormBtn } from "../components/Form"; //, TextArea
 
+import ReactDOM from 'react-dom';
+import Modal from 'react-modal';
+
+const customStyles = {
+  content: {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+    padding: '2%'
+  }
+};
+
+//Modal.setAppElement('#yourAppElement')
+
 class Books extends Component {
-  state = {
-    books: [],
-    search: ""
-  };
+
+  constructor() {
+    super();
+
+    this.state = {
+      modalIsOpen: false,
+      books: [],
+      search: ""
+    };
+
+    this.openModal = this.openModal.bind(this);
+    this.afterOpenModal = this.afterOpenModal.bind(this);
+    this.closeModal = this.closeModal.bind(this);
+  }
+
+  // state = {
+  //   books: [],
+  //   search: ""
+  // };
+
+  openModal() {
+    this.setState({ modalIsOpen: true });
+  }
+
+  afterOpenModal() {
+    // references are now sync'd and can be accessed.
+    this.subtitle.style.color = 'black';
+  }
+
+  closeModal() {
+    this.setState({ modalIsOpen: false });
+  }
 
   componentDidMount() {
     this.loadBooks({ "saved": false });
@@ -52,7 +97,11 @@ class Books extends Component {
       API.saveBook({
         search: this.state.search
       })
-        .then(res => this.loadBooks({ "saved": false }))
+        .then(res => {
+          this.loadBooks({ "saved": false });
+          //alert("Search Done!");
+          this.openModal();
+        })
         .catch(err => console.log(err));
     }
   };
@@ -66,27 +115,31 @@ class Books extends Component {
               <h1>(React) Google Books Search</h1>
               <h3>Search and Save Books of Interest</h3>
             </Jumbotron>
-            <form>
-              <Input
-                value={this.state.search}
-                onChange={this.handleInputChange}
-                name="search"
-                placeholder="Search (required)"
-              />
-              <FormBtn
-                className="btn btn-success"
-                disabled={!(this.state.search)}
-                onClick={this.handleFormSubmit}
-              >
-                Submit Book
+            <div className="card margin1">
+              <div className="card-header">
+                <form>
+                  <Input
+                    value={this.state.search}
+                    onChange={this.handleInputChange}
+                    name="search"
+                    placeholder="Search (required)"
+                  />
+                  <FormBtn
+                    className="btn btn-success"
+                    disabled={!(this.state.search)}
+                    onClick={this.handleFormSubmit}
+                  >
+                    Search
               </FormBtn>
-            </form>
+                </form>
+              </div>
+            </div>
           </Col>
         </Row>
         <Row>
           <Col size="md-12 sm-12">
             <div className="card" style={{ marginBottom: "50px" }}>
-              <div className="card-header">Results</div>
+              <div className="card-header"><h3>Results</h3></div>
               {this.state.books.length ? (
                 <List>
                   {this.state.books.map(book => (
@@ -135,6 +188,30 @@ class Books extends Component {
             </div>
           </Col>
         </Row>
+        <Modal
+          isOpen={this.state.modalIsOpen}
+          onAfterOpen={this.afterOpenModal}
+          onRequestClose={this.closeModal}
+          style={customStyles}
+          contentLabel="Example Modal"
+        >
+          <div className="row">
+            <div className="col-md-12">
+              <span style={{ "float": "right", "cursor":"pointer" }} onClick={this.closeModal}>x</span>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-md-12">
+              <h3 ref={subtitle => this.subtitle = subtitle}>Search Done!</h3>
+              <div>Please check the results.</div>
+            </div>
+          </div>
+          <div className="row" style={{ "margin": "auto" }}>
+            <div className="col-md-12" style={{ "margin": "auto" }} >
+              <button style={{ "margin-top": "20px", "margin-left": "25%" }} className="btn btn-secondary" onClick={this.closeModal}>close</button>
+            </div>
+          </div>
+        </Modal>
       </Container>
     );
   }
