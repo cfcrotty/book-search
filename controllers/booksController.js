@@ -26,7 +26,7 @@ module.exports = {
         data.push({link: item.volumeInfo.previewLink, 
           title: item.volumeInfo.title, 
           description: item.volumeInfo.description, 
-          authors: item.volumeInfo.authors.join(), 
+          authors: item.volumeInfo.authors, 
           image: item.volumeInfo.imageLinks ? item.volumeInfo.imageLinks.smallThumbnail : "https://via.placeholder.com/150"
         });
       });

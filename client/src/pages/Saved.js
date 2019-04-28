@@ -57,7 +57,7 @@ class Books extends Component {
                           <div className="row">
                             <div className="col-md-10">
                               <Link to={"/books/" + book._id}>{book.title}</Link>
-                              <p className="col-md-12">by {book.authors}</p>
+                              <p className="col-md-12">by {book.authors.join()}</p>
                             </div>
                             <div className="col-md-1">
                               <a href={book.link} target="_blank" rel="noopener noreferrer">

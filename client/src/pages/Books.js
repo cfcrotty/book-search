@@ -22,7 +22,7 @@ const customStyles = {
   }
 };
 
-//Modal.setAppElement('#yourAppElement')
+Modal.setAppElement('#root');
 
 class Books extends Component {
 
@@ -115,6 +115,10 @@ class Books extends Component {
               <h1>(React) Google Books Search</h1>
               <h3>Search and Save Books of Interest</h3>
             </Jumbotron>
+          </Col>
+        </Row>
+        <Row>
+          <Col size="md-12">
             <div className="card margin1">
               <div className="card-header">
                 <form>
@@ -149,7 +153,7 @@ class Books extends Component {
                           <div className="row">
                             <div className="col-md-9">
                               <Link to={"/books/" + book._id}>{book.title}</Link>
-                              <p className="col-md-12">by {book.authors}</p>
+                              <p className="col-md-12">by {book.authors.join()}</p>
                             </div>
                             <div className="col-md-1">
                               <a href={book.link} target="_blank" rel="noopener noreferrer">
@@ -197,7 +201,7 @@ class Books extends Component {
         >
           <div className="row">
             <div className="col-md-12">
-              <span style={{ "float": "right", "cursor":"pointer" }} onClick={this.closeModal}>x</span>
+              <span style={{ "float": "right", "cursor": "pointer" }} onClick={this.closeModal}>x</span>
             </div>
           </div>
           <div className="row">
@@ -208,7 +212,7 @@ class Books extends Component {
           </div>
           <div className="row" style={{ "margin": "auto" }}>
             <div className="col-md-12" style={{ "margin": "auto" }} >
-              <button style={{ "margin-top": "20px", "margin-left": "25%" }} className="btn btn-secondary" onClick={this.closeModal}>close</button>
+              <button style={{ "marginTop": "20px", "marginLeft": "25%" }} className="btn btn-secondary" onClick={this.closeModal}>close</button>
             </div>
           </div>
         </Modal>
